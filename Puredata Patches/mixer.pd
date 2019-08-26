@@ -1,0 +1,55 @@
+#N canvas 131 216 752 538 10;
+#X obj 101 101 cnv 15 148 148 empty empty empty 20 12 0 14 -128992
+-66577 0;
+#X obj 299 28 inlet~ osc1;
+#X obj 392 26 inlet~ osc2;
+#X obj 481 28 inlet~ osc3;
+#X obj 379 325 outlet~;
+#X obj 335 268 *~ 1;
+#X obj 369 270 *~ 1;
+#X obj 402 273 *~ 1;
+#X obj 33 11 loadbang;
+#X msg 25 48 1;
+#X obj 113 187 hsl 128 15 0 1 0 0 \$0-osc2-send \$0-osc2-recv Osc_2:0.5
+2 8 0 10 -99865 -1 -1 6350 1;
+#N canvas 0 140 1280 942 send-recieve 0;
+#X msg 14 43 label Osc_1:\$1;
+#X msg 120 49 label Osc_2:\$1;
+#X msg 234 50 label Osc_3:\$1;
+#X obj 13 23 r \$0-osc1-send;
+#X obj 13 63 s \$0-osc1-recv;
+#X obj 120 29 r \$0-osc2-send;
+#X obj 120 69 s \$0-osc2-recv;
+#X obj 234 30 r \$0-osc3-send;
+#X obj 234 70 s \$0-osc3-recv;
+#X connect 0 0 4 0;
+#X connect 1 0 6 0;
+#X connect 2 0 8 0;
+#X connect 3 0 0 0;
+#X connect 5 0 1 0;
+#X connect 7 0 2 0;
+#X restore 156 74 pd send-recieve;
+#X obj 112 157 hsl 128 15 0 1 0 0 \$0-osc1-send \$0-osc1-recv Osc_1:1
+2 8 0 10 -99865 -1 -1 12700 1;
+#X obj 113 214 hsl 128 15 0 1 0 0 \$0-osc3-send \$0-osc3-recv Osc_3:0.330709
+2 8 0 10 -99865 -1 -1 4200 1;
+#X obj 101 101 cnv 15 148 25 empty empty Mixer 10 12 0 18 -1 -191407
+0;
+#X msg 69 46 0.5;
+#X msg 110 47 0.3;
+#X connect 1 0 5 0;
+#X connect 2 0 6 0;
+#X connect 3 0 7 0;
+#X connect 5 0 4 0;
+#X connect 6 0 4 0;
+#X connect 7 0 4 0;
+#X connect 8 0 9 0;
+#X connect 8 0 15 0;
+#X connect 8 0 16 0;
+#X connect 9 0 12 0;
+#X connect 10 0 6 1;
+#X connect 12 0 5 1;
+#X connect 13 0 7 1;
+#X connect 15 0 10 0;
+#X connect 16 0 13 0;
+#X coords 0 -1 1 1 150 150 1 100 100;

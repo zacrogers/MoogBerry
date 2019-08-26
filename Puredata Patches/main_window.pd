@@ -1,0 +1,9 @@
+#N canvas 0 50 1280 942 10;
+#X obj 149 158 modules;
+#N canvas 268 116 450 300 dsp_on 0;
+#X obj 150 56 loadbang;
+#X msg 150 78 1;
+#X msg 150 104 \; pd dsp 1;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X restore 145 120 pd dsp_on;

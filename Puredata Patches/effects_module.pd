@@ -1,0 +1,174 @@
+#N canvas 0 158 968 726 10;
+#X obj 101 102 cnv 15 298 298 empty empty empty 20 12 0 14 -128992
+-66577 0;
+#X obj 101 101 cnv 15 298 25 empty empty Effects 10 12 0 18 -1 -191407
+0;
+#X obj 100 250 cnv 15 298 5 empty empty empty 20 12 0 14 -1 -66577
+0;
+#X obj 108 180 hsl 100 15 10 500 0 0 \$0-deltime-send \$0-deltime-recv
+Time(ms):360 2 8 0 10 -99865 -1 -1 7071 1;
+#X obj 108 203 hsl 100 15 0 0.9 0 0 \$0-delfb-send \$0-delfb-recv Feekback
+2 8 0 10 -99865 -1 -1 2200 1;
+#X obj 101 127 cnv 15 100 20 empty empty Delay 8 12 0 16 -66577 -228856
+0;
+#X obj 101 256 cnv 15 100 20 empty empty Chorus 8 12 0 16 -66577 -228856
+0;
+#X obj 108 228 hsl 100 15 0 2 0 0 \$0-delwetdry-send \$0-delwetdry-recv
+Wet/Dry 2 8 0 10 -99865 -1 -1 743 1;
+#N canvas 0 50 1280 942 send-recieve 0;
+#X obj 92 45 cnv 15 350 150 empty empty empty 20 12 0 14 -162280 -66577
+0;
+#X obj 149 106 r \$0-deltime-send;
+#X obj 149 146 s \$0-deltime-recv;
+#X obj 213 56 delay labels;
+#X msg 149 126 label Time(ms):\$1;
+#X connect 1 0 4 0;
+#X connect 4 0 2 0;
+#X restore 101 70 pd send-recieve;
+#X obj 651 32 inlet~;
+#X obj 536 421 outlet~;
+#N canvas 153 131 939 706 delay 0;
+#X obj 29 24 inlet~;
+#X obj 85 246 delwrite~ delayname 10000;
+#X obj 262 25 inlet drywet;
+#X obj 163 24 inlet feedback;
+#X obj 80 25 inlet time;
+#X obj 261 445 outlet~;
+#X obj 269 299 drywet;
+#X obj 162 294 *~ 0.1;
+#X obj 83 358 delread~ delayname 500;
+#X obj 86 166 *~ 1;
+#N canvas 0 50 450 300 mute 0;
+#X obj 176 120 \$1 100;
+#X obj 176 142 line;
+#X obj 176 181 outlet;
+#X obj 176 77 inlet;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 3 0 0 0;
+#X restore 357 76 pd mute button;
+#X obj 277 205 *~ 1;
+#X obj 358 25 inlet mute;
+#X obj 480 24 inlet hpf;
+#X obj 564 23 inlet lpf;
+#X obj 570 147 lop~;
+#X floatatom 564 45 5 0 0 0 - - -, f 5;
+#X obj 564 64 pack f 50;
+#X obj 564 86 mtof;
+#X floatatom 480 46 5 0 0 0 - - -, f 5;
+#X obj 480 65 pack f 50;
+#X obj 480 87 mtof;
+#X obj 484 144 hip~;
+#X floatatom 80 62 5 0 0 0 - - -, f 5;
+#X floatatom 163 46 5 0 0 0 - - -, f 5;
+#X floatatom 262 47 5 0 0 0 - - -, f 5;
+#X connect 0 0 9 0;
+#X connect 2 0 25 0;
+#X connect 3 0 24 0;
+#X connect 4 0 23 0;
+#X connect 6 0 5 0;
+#X connect 7 0 1 0;
+#X connect 8 0 7 0;
+#X connect 8 0 22 0;
+#X connect 8 0 15 0;
+#X connect 9 0 1 0;
+#X connect 9 0 6 0;
+#X connect 10 0 6 3;
+#X connect 11 0 6 1;
+#X connect 12 0 10 0;
+#X connect 13 0 19 0;
+#X connect 14 0 16 0;
+#X connect 15 0 11 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 18 0 15 1;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 21 0 22 1;
+#X connect 22 0 11 0;
+#X connect 23 0 8 0;
+#X connect 24 0 7 1;
+#X connect 25 0 6 2;
+#X restore 536 181 pd delay;
+#N canvas 0 50 450 300 chorus 0;
+#X restore 693 141 pd chorus;
+#N canvas 0 50 450 300 reverb 0;
+#X msg 272 135 roomsize \$1;
+#X obj 288 276 Freeverb~;
+#X restore 893 149 pd reverb;
+#X obj 302 28 loadbang;
+#X obj 108 157 hsl 30 15 127 0 0 0 empty empty HPF 2 8 0 10 -99865
+-1 -1 2900 1;
+#X obj 194 157 tgl 15 0 empty empty on 2 7 0 10 -99865 -1 -1 1 1;
+#X obj 152 157 hsl 30 15 0 127 0 0 empty empty LPF 2 8 0 10 -99865
+-1 -1 2900 1;
+#X msg 370 65 0.15;
+#X msg 267 64 0;
+#X msg 237 65 127;
+#X msg 301 64 360;
+#X msg 341 65 0.2;
+#X obj 247 109 cnv 7 5 290 empty empty empty 20 12 0 14 -1 -66577 0
+;
+#X obj 253 256 cnv 15 100 20 empty empty Phaser 8 12 0 16 -66577 -228856
+0;
+#X obj 253 127 cnv 15 100 20 empty empty Distortion 8 12 0 16 -66577
+-228856 0;
+#X msg 440 109 0.15;
+#X obj 440 85 delay 50;
+#N canvas 236 517 696 434 dist 0;
+#X obj 150 22 inlet~;
+#N canvas 0 50 450 300 mute 0;
+#X obj 176 120 \$1 100;
+#X obj 176 142 line;
+#X obj 176 181 outlet;
+#X obj 176 77 inlet;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 3 0 0 0;
+#X restore 371 100 pd mute button;
+#X obj 372 49 inlet mute;
+#X obj 161 65 *~ 40;
+#X obj 186 189 *~;
+#X obj 171 118 clip~ -0.5 10;
+#X obj 257 23 inlet OD;
+#X obj 185 284 outlet~;
+#X connect 0 0 3 0;
+#X connect 1 0 4 1;
+#X connect 2 0 1 0;
+#X connect 3 0 5 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 0;
+#X connect 6 0 5 1;
+#X restore 595 245 pd dist;
+#X obj 262 222 hsl 100 15 0 2 0 0 \$0-delwetdry-send \$0-delwetdry-recv
+Wet/Dry 2 8 0 10 -99865 -1 -1 0 1;
+#X obj 361 156 tgl 15 0 empty empty on 2 7 0 10 -99865 -1 -1 0 1;
+#X obj 265 192 hsl 100 15 0 50 0 0 \$0-delwetdry-send \$0-delwetdry-recv
+Wet/Dry 2 8 0 10 -99865 -1 -1 0 1;
+#X connect 3 0 11 1;
+#X connect 4 0 11 2;
+#X connect 7 0 11 3;
+#X connect 9 0 11 0;
+#X connect 9 0 28 0;
+#X connect 11 0 10 0;
+#X connect 14 0 22 0;
+#X connect 14 0 21 0;
+#X connect 14 0 19 0;
+#X connect 14 0 20 0;
+#X connect 14 0 16 0;
+#X connect 14 0 27 0;
+#X connect 14 0 18 0;
+#X connect 15 0 11 5;
+#X connect 16 0 11 4;
+#X connect 16 0 26 0;
+#X connect 17 0 11 6;
+#X connect 18 0 7 0;
+#X connect 19 0 15 0;
+#X connect 20 0 17 0;
+#X connect 21 0 3 0;
+#X connect 22 0 4 0;
+#X connect 26 0 7 0;
+#X connect 27 0 26 0;
+#X connect 29 0 28 1;
+#X connect 30 0 28 2;
+#X coords 0 -1 1 1 300 300 1 100 100;
